@@ -66,7 +66,7 @@ mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --execute "CREATE USER IF NO
 if ! [ -z "$MYSQL_DATABASE" ]; then
     mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --execute "CREATE DATABASE IF NOT EXISTS "$MYSQL_DATABASE";" >/dev/null # sending stdout to bit bucket (null device) / supressing warnings
     mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --execute "GRANT ALL ON "$MYSQL_DATABASE".* TO '"$MYSQL_USER"'@'%';" >/dev/null &&
-        echo "INFO - successfully Created database "$MYSQL_DATABASE" with all access to user '"$MYSQL_USER"'"
+        echo "INFO - successfully Created database '"$MYSQL_DATABASE"' with all access to user '"$MYSQL_USER"'"
 fi
 
 # ------ Clean up ------

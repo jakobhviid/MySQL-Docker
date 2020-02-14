@@ -37,7 +37,7 @@ Three out of the four environment variables seen in this docker-compose file are
 - `MYSQL_DATABASE:` Initializes a database so you can start using this image out of the box. This database is default only accessible by local root user and the provided `MYSQL_USER` with all privileges. 
 </br>
 
-- `MYSQL_REMOTE_ROOT_IP_ADDRESS:` The root user is by default only accessible from within the container. This variabel will allow remote root access. This is unsafe to do and is not advised to do so see ([Root User](#root-user))
+- TODO, THIS IS NOT WORKING CORRECTLY YET `MYSQL_REMOTE_ROOT_IP_ADDRESS:` The root user is by default only accessible from within the container. This variabel will allow remote root access. This is unsafe to do and is not advised to do.
 
 
 
