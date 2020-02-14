@@ -31,17 +31,33 @@ if [ -z "$MYSQL_USER" ]; then
 fi
 
 if [ -z "$MYSQL_PASSWORD" ]; then
-    echo -e "\e[1;31mERROR Missing essential environment variabel MYSQL_PASSWORD \e[0m"
+    echo -e "\e[1;31mERROR - Missing essential environment variabel MYSQL_PASSWORD \e[0m"
     exit 1
 fi
 
 # ------ root access ------
 
-# set root password for localhost access
-mysql --execute "DROP USER root@localhost;
-FLUSH PRIVILEGES;
-CREATE USER root@localhost IDENTIFIED BY '"$MYSQL_ROOT_PASSWORD"';
-GRANT ALL ON *.* TO root@localhost WITH GRANT OPTION;"
+if ! [ -z "$MYSQL_REMOTE_ROOT_IP_ADDRESS" ]; then
+    # simple test for correct IP-address
+    if [[ $MYSQL_REMOTE_ROOT_IP_ADDRESS =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+        echo "INFO - MySQL Remote Root is being configured. Please note that this is unsafe to do!"
+    else
+        echo -e "\e[1;31mERROR - Invalid IP address provided for MYSQL_REMOTE_ROOT_IP_ADDRESS \e[0m"
+        exit 1
+    fi
+    
+    # set root password and remote access
+    mysql --execute "DROP USER root@localhost;
+    FLUSH PRIVILEGES;
+    CREATE USER 'root'@'"$MYSQL_REMOTE_ROOT_IP_ADDRESS"' IDENTIFIED BY '"$MYSQL_ROOT_PASSWORD"';
+    GRANT ALL ON *.* TO 'root'@'"$MYSQL_REMOTE_ROOT_IP_ADDRESS"' WITH GRANT OPTION;"
+else
+    # set root password for localhost access
+    mysql --execute "DROP USER root@localhost;
+    FLUSH PRIVILEGES;
+    CREATE USER 'root'@'localhost' IDENTIFIED BY '"$MYSQL_ROOT_PASSWORD"';
+    GRANT ALL ON *.* TO 'root'@'localhost' WITH GRANT OPTION;"
+fi
 
 # ------ mysql_user creation ------
 
