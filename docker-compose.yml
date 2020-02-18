@@ -12,3 +12,16 @@ services:
       MYSQL_USER: elon
       MYSQL_PASSWORD: musk
       MYSQL_DATABASE: tesla
+      MYSQL_REMOTE_ROOT_IP_ADDRESS: 172.26.0.1
+  # mysql_test:
+  #   image: mysql
+  #   container_name: mysql_test
+  #   restart: always
+  #   ports:
+  #     - 3307:3306
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root_test
+  #     MYSQL_USER: elon
+  #     MYSQL_PASSWORD: musk
+  #     MYSQL_DATABASE: tesla
+  #     MYSQL_ROOT_HOST: 172.26.0.1

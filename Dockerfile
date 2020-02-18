@@ -1,5 +1,8 @@
 FROM ubuntu:19.10
 
+ENV MYSQL_HOME=/etc/mysql
+ENV MYSQL_DATA_HOME=/var/lib/mysql
+
 RUN apt update && \
     useradd --create-home --shell /bin/bash mysql && \
     apt install -y mysql-server
@@ -10,12 +13,12 @@ RUN chmod +x /tmp/*.sh && \
     mv /tmp/* /usr/bin && \
     rm -rf /tmp/*
 
-COPY ./mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
+COPY ./mysqld.cnf ${MYSQL_HOME}/mysql.conf.d/mysqld.cnf
 
 HEALTHCHECK --interval=45s --timeout=30s --start-period=60s --retries=3 CMD [ "healthcheck.sh" ]
 
 EXPOSE 3306
 
-VOLUME /var/lib/mysql
+VOLUME ${MYSQL_DATA_HOME}
 
 CMD [ "start.sh" ]

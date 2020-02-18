@@ -19,9 +19,11 @@ services:
 
 ```
 
-Three out of the four environment variables seen in this docker-compose file are required. `MYSQL_ROOT_PASSWORD`, `MYSQL_USER` and `MYSQL_PASSWORD`. These three variables will setup a user for outside connections (elon) and change root password for root user on a local connection.
+Three out of the four environment variables seen in this docker-compose file are required. `MYSQL_ROOT_PASSWORD`, `MYSQL_USER` and `MYSQL_PASSWORD`. These three variables will setup a user for outside connections (elon) and change the password for root user on a local connection.
 
 # Configurations
+**Note:** These environment variables only take effect when the container starts up the first time. If you want to change some of these settings you can manually change it with root user or remove container from your system and build again.
+
 #### Required Configurations
 
 - `MYSQL_ROOT_PASSWORD:` Root user password for administrative access. If you need to grant privileges, create other databases or other administrative tasks see ([Root User](#root-user))
@@ -37,7 +39,7 @@ Three out of the four environment variables seen in this docker-compose file are
 - `MYSQL_DATABASE:` Initializes a database so you can start using this image out of the box. This database is default only accessible by local root user and the provided `MYSQL_USER` with all privileges. 
 </br>
 
-- TODO, THIS IS NOT WORKING CORRECTLY YET `MYSQL_REMOTE_ROOT_IP_ADDRESS:` The root user is by default only accessible from within the container. This variabel will allow remote root access. This is unsafe to do and is not advised to do.
+- `MYSQL_REMOTE_ROOT_IP_ADDRESS:` The root user is by default only accessible from within the container. This variable will allow remote root access. This is unsafe to do and is not advised to do, but can be useful in some situations.
 
 
 
