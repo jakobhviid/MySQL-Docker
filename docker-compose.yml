@@ -1,10 +1,13 @@
-version: "3"
+version: "3.7"
 
 services:
   mysql:
-    image: omvk97/mysql
+    build: ./
     container_name: mysql
     restart: always
+    volumes:
+      - ./data:/var/lib/mysql
+      # - data-test:/var/lib/mysql
     ports:
       - 3306:3306
     environment:
@@ -13,10 +16,16 @@ services:
       MYSQL_PASSWORD: musk
       MYSQL_DATABASE: tesla
       MYSQL_REMOTE_ROOT_IP_ADDRESS: 172.26.0.1
+
+volumes:
+  data-test:
+
   # mysql_test:
   #   image: mysql
   #   container_name: mysql_test
   #   restart: always
+  #   # volumes:
+  #   #   - ./mysql-data:/var/lib/mysql
   #   ports:
   #     - 3307:3306
   #   environment:
@@ -24,4 +33,4 @@ services:
   #     MYSQL_USER: elon
   #     MYSQL_PASSWORD: musk
   #     MYSQL_DATABASE: tesla
-  #     MYSQL_ROOT_HOST: 172.26.0.1
+  #     MYSQL_REMOTE_ROOT_IP_ADDRESS: 172.26.0.1

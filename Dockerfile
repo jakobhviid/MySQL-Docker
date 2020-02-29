@@ -7,6 +7,10 @@ RUN apt update && \
     useradd --create-home --shell /bin/bash mysql && \
     apt install -y mysql-server
 
+RUN rm -rf /var/lib/mysql && mkdir -p /var/lib/mysql /var/run/mysqld && \
+    chown -R mysql:mysql /var/lib/mysql /var/run/mysqld && \
+    chmod 777 /var/run/mysqld
+
 # Copy necessary scripts + configuration
 COPY scripts /tmp/
 RUN chmod +x /tmp/*.sh && \

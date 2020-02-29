@@ -5,7 +5,7 @@ configuration_info_path=/var/lib/mysql/configuration_info
 
 # test if container has been run before and therefor init configuration should not be done again. See end of script to see creation of this file
 if [[ $(cat "$configuration_info_path") == "True" ]]; then
-    echo -e "\e[1;32mINFO - Configuration has been done before, exiting configuration \e[0m"
+    echo -e "\e[1;32mINFO - Configuration has been done for this container before, exiting configuration \e[0m"
     exit 0
 fi
 
