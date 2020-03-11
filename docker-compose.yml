@@ -7,7 +7,6 @@ services:
     restart: always
     volumes:
       - ./data:/var/lib/mysql
-      # - data-test:/var/lib/mysql
     ports:
       - 3306:3306
     environment:
@@ -19,18 +18,3 @@ services:
 
 volumes:
   data-test:
-
-  # mysql_test:
-  #   image: mysql
-  #   container_name: mysql_test
-  #   restart: always
-  #   # volumes:
-  #   #   - ./mysql-data:/var/lib/mysql
-  #   ports:
-  #     - 3307:3306
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: root_test
-  #     MYSQL_USER: elon
-  #     MYSQL_PASSWORD: musk
-  #     MYSQL_DATABASE: tesla
-  #     MYSQL_REMOTE_ROOT_IP_ADDRESS: 172.26.0.1
