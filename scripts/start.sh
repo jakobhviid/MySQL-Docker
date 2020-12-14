@@ -1,13 +1,25 @@
 #!/bin/bash
 
+#Send SIGTERM to mysql processes, allow them time to terminate.
+function cleanup(){
+	pkill -U mysql
+	local e1=$?
+	sleep 8
+    exit $e1
+}
+
+#Trap SIGTERM from docker stop, and SIGINT.
+trap cleanup SIGTERM SIGINT
+
+
 # Initialize data directory. Insecure means no root password as this is set later in the process.
 echo "INFO - Preparing data directory for database start"
 mysqld --initialize-insecure --user=mysql
 echo "INFO - Data directory initialized"
 service mysql start
 
-configure-mysql.sh
 
+configure-mysql.sh
 if [ $? != 0 ]; then
     exit 1
 fi
@@ -23,4 +35,9 @@ service mysql restart
 
 echo "INFO - Server ready"
 
-tail -f /var/log/mysql/error.log
+#Keep start.sh as pid one, execute tail in the background.
+tail -f /var/log/mysql/error.log &
+
+wait
+
+
